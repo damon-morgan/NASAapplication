@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/myhome"
+        android:title="NASA Image of the Day"
+        android:orderInCategory="15"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/mylist"
+        android:title="My List"
+        android:orderInCategory="20"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/howto"
+        android:title="Tutorial"
+        android:orderInCategory="5"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/datepick"
+        android:title="Select a Date"
+        android:orderInCategory="10"
+        app:showAsAction="never"/>
+</menu>

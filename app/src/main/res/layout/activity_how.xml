@@ -15,7 +15,6 @@
         android:layout_height="match_parent"
         app:menu="@menu/tool_menu" />
 
-
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -23,21 +22,29 @@
         android:layout_height="match_parent"
         tools:context=".HowActivity">
 
-        <ImageView
-            android:id="@+id/imageView"
+        <TextView
+            android:id="@+id/headerText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/headerText"
+            android:textSize="30dp"
             android:layout_marginTop="350dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- TODO: Add button to add image to list -->
+        <TextView
+            android:id="@+id/mainText"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:text="@string/mainText"
+            android:textSize="25dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/headerText"
+            android:layout_marginTop="10dp" />
 
-        <!-- TODO: Add button to return to select another date -->
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
     <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"

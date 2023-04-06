@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">NASAapplication</string>
+    <string name="welcomemsg">Welcome to NASAs image of the day!</string>
+    <string name="enterbutton">Enter</string>
+    <string name="deletebutton">Delete</string>
+    <string name="backbutton">Back</string>
+    <string name="selectDate">Select a Date</string>
+    <string name="headerText">How To Use Our App</string>
+    <string name="mainText">First navigate to select a date to choose a date to look up the image for that day. Then click retrieve image and the application will load up the picture.</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="nasatitle">Detailed Information</string>
 </resources>
