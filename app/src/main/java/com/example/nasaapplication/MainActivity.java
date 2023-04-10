@@ -13,6 +13,8 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -58,12 +60,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = findViewById(R.id.naviView);
         navigationView.setNavigationItemSelectedListener(this);
 
-        SharedPreferences sharepref = getSharedPreferences("nasaPrefs", Context.MODE_PRIVATE);
-        userDate = sharepref.getString("date", null);
-
-        imgView = findViewById(R.id.imageView);
-        nasaImages req = new nasaImages();
-        req.execute("https://api.nasa.gov/planetary/apod?api_key=acQMNXflx5bSpHDHl3vc7uLnLYvCchnUDoHxGD0t&date="+userDate);
+        getSupportFragmentManager().beginTransaction().replace(R.id.fcv, MainFragment.newInstance()).commit();
     }
 
     @Override
@@ -117,71 +114,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.tool_menu, menu);
         return true;
-    }
-
-    class nasaImages extends AsyncTask<String, Integer, Bitmap> {
-
-        Bitmap nasaPic;
-
-        @Override
-        protected Bitmap doInBackground(String... args) {
-            try {
-                URL url = new URL(args[0]);
-                HttpURLConnection urlConnect = (HttpURLConnection) url.openConnection();
-                InputStream response = urlConnect.getInputStream();
-
-                BufferedReader read = new BufferedReader(new InputStreamReader(response, StandardCharsets.UTF_8), 8);
-                StringBuilder sb = new StringBuilder();
-
-                String line;
-                while ((line = read.readLine()) != null) {
-                    sb.append(line).append("\n");
-                }
-                String result = sb.toString();
-
-                JSONObject nasaImg = new JSONObject(result);
-                String nasaDate = nasaImg.getString("date");
-                String nasaTitle = nasaImg.getString("title");
-                String nasaUrl = nasaImg.getString("url");
-                URL nasaPicUrl = new URL(nasaUrl);
-                response.close();
-
-                BufferedInputStream bis = new BufferedInputStream(nasaPicUrl.openStream());
-                nasaPic = BitmapFactory.decodeStream(bis);
-                File path = Environment.getExternalStorageDirectory();
-                File dir = new File(path.getAbsolutePath() + "/Pictures");
-                dir.mkdir();
-                File nasaFile = new File(dir, nasaDate + ".png");
-                if (nasaFile.exists()) {
-                    FileOutputStream outputStream = new FileOutputStream(nasaFile);
-                    nasaPic.compress(Bitmap.CompressFormat.PNG, 80, outputStream);
-                    nasaPic = BitmapFactory.decodeFile(path.getAbsolutePath());
-                    outputStream.flush();
-                    outputStream.close();
-                }
-                bis.close();
-
-                for (int i = 0; i < 100; i++) {
-                    try {
-                        publishProgress(i);
-                        Thread.sleep(30);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            } catch (JSONException | IOException e) {
-                e.printStackTrace();
-            }
-            return nasaPic;
-        }
-
-        public void onProgressUpdate(Integer... args) {
-            //progressBar.setProgress(args[0]);
-            imgView.setImageBitmap(nasaPic);
-        }
-
-        public void onPostExecute(Bitmap catPic) {
-
-        }
     }
 }
