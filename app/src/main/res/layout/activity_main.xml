@@ -9,34 +9,27 @@
     android:id="@+id/my_drawer"
     tools:openDrawer="start">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/my_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         app:menu="@menu/tool_menu" />
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.fragment.app.FragmentContainerView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/fcv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".HowActivity">
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="350dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <!-- TODO: Add button to add image to list -->
-
-        <!-- TODO: Add button to return to select another date -->
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+    </androidx.fragment.app.FragmentContainerView>
+</LinearLayout>
 
 
     <com.google.android.material.navigation.NavigationView

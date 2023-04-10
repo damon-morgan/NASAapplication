@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -27,8 +29,8 @@ public class DateActivity extends AppCompatActivity implements NavigationView.On
     DrawerLayout draw;
     TextView selectDate;
     Button dateSelectButton, retrieveButton;
-    Date selectedDate;
-    SharedPreferences sharepref;
+    String selectedDate;
+    SharedPreferences sharePref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +48,7 @@ public class DateActivity extends AppCompatActivity implements NavigationView.On
         selectDate = findViewById(R.id.selectDate);
         dateSelectButton = findViewById(R.id.dateSelectButton);
         retrieveButton = findViewById(R.id.retrieveButton);
-        sharepref = getSharedPreferences("nasaPrefs", Context.MODE_PRIVATE);
+        sharePref = getSharedPreferences("nasaPrefs", Context.MODE_PRIVATE);
 
         final Calendar calendar = Calendar.getInstance();
         final int year = calendar.get(Calendar.YEAR);
@@ -58,11 +60,7 @@ public class DateActivity extends AppCompatActivity implements NavigationView.On
             DatePickerDialog dialog = new DatePickerDialog(DateActivity.this, (view1, year1, month1, day1) -> {
                 month1 = month1 +1;
                 String date = year1 +"-"+ month1 +"-"+ day1;
-                try {
-                    selectedDate =new SimpleDateFormat("YYYY-MM-dd").parse(date);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
+                selectedDate = date;
                 dateSelectButton.setText(date);
 
             },year, month,day);
@@ -71,8 +69,12 @@ public class DateActivity extends AppCompatActivity implements NavigationView.On
         });
 
         retrieveButton.setOnClickListener(view -> {
+            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            Log.d("User Date on Retrieve", "value is: " + selectedDate);
+            editor.putString("date", selectedDate);
+            editor.commit();
             Intent nasaPage = new Intent(DateActivity.this, MainActivity.class);
-            nasaPage.putExtra("date", selectedDate);
             startActivity(nasaPage);
         });
 
