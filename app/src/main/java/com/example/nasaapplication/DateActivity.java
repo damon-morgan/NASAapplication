@@ -19,6 +19,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -114,8 +116,8 @@ public class DateActivity extends AppCompatActivity implements NavigationView.On
         switch(item.getItemId())
         {
             case R.id.item1:
-                // TODO: Implement settings activity
-                // TODO: IDEA: Settings can include clearing list completely, change background of application
+                Intent nextPages = new Intent(DateActivity.this, Settings.class);
+                startActivity(nextPages);
                 break;
             case R.id.item2:
                 message = "Exiting the application";
@@ -123,7 +125,7 @@ public class DateActivity extends AppCompatActivity implements NavigationView.On
                 finishAffinity();
                 break;
         }
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+
         return true;
     }
 

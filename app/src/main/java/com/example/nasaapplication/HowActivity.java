@@ -13,6 +13,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 
 public class HowActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     Toolbar tool;
@@ -68,8 +69,8 @@ public class HowActivity extends AppCompatActivity implements NavigationView.OnN
         switch(item.getItemId())
         {
             case R.id.item1:
-                // TODO: Implement settings activity
-                // TODO: IDEA: Settings can include clearing list completely, change background of application
+                Intent nextPages = new Intent(HowActivity.this, Settings.class);
+                startActivity(nextPages);
                 break;
             case R.id.item2:
                 message = "Exiting the application";
@@ -77,7 +78,7 @@ public class HowActivity extends AppCompatActivity implements NavigationView.OnN
                 finishAffinity();
                 break;
         }
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+
         return true;
     }
 

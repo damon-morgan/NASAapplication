@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">NASAapplication</string>
+    <string name="welcomemsg">Bienvenue sur l\'image du jour de la NASA !</string>
+    <string name="enterbutton">Entrer</string>
+    <string name="deletebutton">Supprimer</string>
+    <string name="backbutton">Dos</string>
+    <string name="selectDate">Sélectionnez une date</string>
+    <string name="headerText">Comment utiliser notre application</string>
+    <string name="mainText">Naviguez d\'abord pour sélectionner une date pour choisir une date pour rechercher l\'image pour ce jour. Cliquez ensuite sur récupérer l\'image et l\'application chargera l\'image.</string>
+    <string name="open">Ouvrir</string>
+    <string name="close">Fermer</string>
+    <string name="clearButton">Clair</string>
+    <string name="addButton">Ajouter</string>
+    <string name="nasatitle">Des informations détaillées</string>
+    <string name="settingsTextOne">Effacer ma liste</string>
+    <string name="settingsTextTwo">Changer la couleur de fond</string>
+    <string name="settingsTextThree">Changer la couleur du texte</string>
+    <string name="settingsTextFour">Recevoir un message</string>
+    <string name="snacky">La liste est maintenant effacée</string>
+    <string name="print">Imprimer</string>
+    <string name="snacky2">Nous espérons que vous passerez une merveilleuse journée!</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Bonjour fragment vierge</string>
+</resources>

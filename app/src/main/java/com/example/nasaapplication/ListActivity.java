@@ -24,6 +24,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
@@ -33,6 +34,7 @@ public class ListActivity extends AppCompatActivity implements NavigationView.On
     ListView nasaList;
     ListAdapter MyAdapter;
     SQLiteDatabase db;
+    Button clear;
     ArrayList<nasaObject> nasaElementList = new ArrayList<>();
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,12 @@ public class ListActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = findViewById(R.id.naviView);
         navigationView.setNavigationItemSelectedListener(this);
 
+        clear = findViewById(R.id.clearButton);
+        clear.setOnClickListener(view -> {
+            Snackbar.make(view, (getResources().getString(R.string.snacky)), Snackbar.LENGTH_SHORT).show();
+            // TODO: deleteList(nasaObject c);
+        });
+
         nasaList = findViewById(R.id.nasalist);
 
         loadDataFromDatabase();
@@ -59,7 +67,6 @@ public class ListActivity extends AppCompatActivity implements NavigationView.On
             selectList(pos);
             return true;
         });
-
 
     }
 
@@ -149,8 +156,8 @@ public class ListActivity extends AppCompatActivity implements NavigationView.On
         switch(item.getItemId())
         {
             case R.id.item1:
-                // TODO: Implement settings activity
-                // TODO: IDEA: Settings can include clearing list completely, change background of application
+                Intent nextPages = new Intent(ListActivity.this, Settings.class);
+                startActivity(nextPages);
                 break;
             case R.id.item2:
                 message = "Exiting the application";
@@ -158,7 +165,7 @@ public class ListActivity extends AppCompatActivity implements NavigationView.On
                 finishAffinity();
                 break;
         }
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+
         return true;
     }
 

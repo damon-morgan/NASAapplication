@@ -16,8 +16,6 @@ public class SQLDatabase extends SQLiteOpenHelper {
         super(contxt, DATABASE_NAME, null, VERSION_NUM);
     }
 
-
-
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + TABLE_NAME + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, "

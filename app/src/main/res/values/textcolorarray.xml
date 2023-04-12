@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="txt_array">
+        <item>Red</item>
+        <item>Blue</item>
+        <item>Yellow</item>
+        <item>Green</item>
+        <item>Pink</item>
+        <item>Purple</item>
+        <item>Black</item>
+        <item>White</item>
+    </string-array>
+</resources>

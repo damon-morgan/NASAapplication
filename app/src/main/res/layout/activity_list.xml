@@ -6,8 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:id="@+id/my_drawer"
-    tools:openDrawer="start">
+    android:id="@+id/my_drawer">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/my_toolbar"
@@ -30,6 +29,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/clearButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/clearButton"
+            app:layout_constraintBottom_toBottomOf="@+id/nasalist"
+            app:layout_constraintStart_toStartOf="@+id/nasalist" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

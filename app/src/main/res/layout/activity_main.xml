@@ -29,6 +29,12 @@
         tools:context=".HowActivity">
 
     </androidx.fragment.app.FragmentContainerView>
+
+        <Button
+            android:id="@+id/addButton"
+            android:text="@string/clearButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 </LinearLayout>
 
 
