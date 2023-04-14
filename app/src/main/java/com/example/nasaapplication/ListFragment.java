@@ -11,6 +11,8 @@ import androidx.annotation.Nullable;
 import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +30,7 @@ import android.widget.Toast;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class ListFragment extends Fragment {
     ListView nasaList;
@@ -34,6 +38,8 @@ public class ListFragment extends Fragment {
     SQLiteDatabase db;
     Button clear;
     ArrayList<nasaObject> nasaElementList = new ArrayList<>();
+
+    EditText listSearch;
 
 
     public ListFragment() {
@@ -60,6 +66,7 @@ public class ListFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        listSearch = view.findViewById(R.id.listSearchBar);
         clear = view.findViewById(R.id.clearButton);
         clear.setOnClickListener(clickedView -> {
             Snackbar.make(view, (getResources().getString(R.string.snacky)), Snackbar.LENGTH_SHORT).show();
@@ -68,9 +75,11 @@ public class ListFragment extends Fragment {
 
         nasaList = view.findViewById(R.id.nasalist);
 
+        nasaElementList.clear();
         loadDataFromDatabase();
 
         nasaList.setAdapter(MyAdapter = new ListAdapter());
+        MyAdapter.setData(nasaElementList);
 
         nasaList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
 
@@ -90,6 +99,31 @@ public class ListFragment extends Fragment {
             return true;
         });
 
+        listSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String searchText = s.toString().toLowerCase();
+                ArrayList<nasaObject> filteredNasaList = new ArrayList<>();
+                if (!searchText.isEmpty()) {
+                    for (nasaObject nasa : nasaElementList) {
+                        if (nasa.getNasaTitle().toLowerCase().contains(searchText)
+                                || nasa.getNasaDate().contains(searchText)) {
+                            filteredNasaList.add(nasa);
+                        }
+                    }
+                    MyAdapter.setData(filteredNasaList);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
     private void loadDataFromDatabase() {
         SQLDatabase openDB = new SQLDatabase(getContext());
@@ -144,17 +178,25 @@ public class ListFragment extends Fragment {
     }
 
     protected void deleteList(nasaObject c) {
-        db.delete(SQLDatabase.TABLE_NAME, SQLDatabase.COL_DATE + "= ?", new String[] {c.getNasaDate()});
-    }
+            db.delete(SQLDatabase.TABLE_NAME, SQLDatabase.COL_DATE + "= ?", new String[] {c.getNasaDate()});
+        }
 
     class ListAdapter extends BaseAdapter {
 
+        ArrayList<nasaObject> listItems = new ArrayList<>();
+
+        public void setData(ArrayList<nasaObject> data) {
+            listItems.clear();
+            listItems.addAll(data);
+            notifyDataSetChanged();
+        }
+
         public int getCount() {
-            return nasaElementList.size();
+            return listItems.size();
         }
 
         public nasaObject getItem(int position) {
-            return nasaElementList.get(position);
+            return listItems.get(position);
         }
 
         public long getItemId(int position) {

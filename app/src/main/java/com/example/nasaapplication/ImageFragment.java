@@ -36,7 +36,6 @@ public class ImageFragment extends Fragment {
 
     private static final String ARG_IMAGE = "image";
     private static final String ARG_DATE = "date";
-    private static final String ARG_URL = "url";
     private static final String ARG_TITLE = "title";
     private static final String ARG_EXPLANATION = "explanation";
     private String image;

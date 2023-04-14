@@ -20,6 +20,7 @@
     <string name="print">Imprimer</string>
     <string name="snacky2">Nous espérons que vous passerez une merveilleuse journée!</string>
     <string name="saveButton">Sauvegarder</string>
+    <string name="listSearch">Recherche</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Bonjour fragment vierge</string>
 </resources>
