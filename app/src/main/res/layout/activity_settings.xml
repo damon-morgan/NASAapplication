@@ -12,11 +12,14 @@
         android:id="@+id/my_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/nasaBlue"
+        app:titleTextColor="@color/orange"
         app:menu="@menu/tool_menu" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/grey"
         tools:context=".Settings">
 
 
@@ -29,7 +32,8 @@
             android:layout_marginEnd="35dp"
             android:layout_marginBottom="22dp"
             android:text="@string/settingsTextTwo"
-            android:textSize="20dp"
+            android:textSize="20sp"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toTopOf="@+id/settingsOptionThree"
             app:layout_constraintEnd_toStartOf="@+id/bg_array"
             app:layout_constraintStart_toStartOf="parent"
@@ -56,7 +60,8 @@
             android:layout_marginEnd="115dp"
             android:layout_marginBottom="608dp"
             android:text="@string/settingsTextThree"
-            android:textSize="20dp"
+            android:textSize="20sp"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/txt_array"
             app:layout_constraintStart_toStartOf="parent"
@@ -80,7 +85,8 @@
             android:layout_marginEnd="78dp"
             android:layout_marginBottom="556dp"
             android:text="@string/settingsTextFour"
-            android:textSize="20dp"
+            android:textSize="20sp"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/Print"
             app:layout_constraintStart_toStartOf="parent" />
@@ -92,6 +98,8 @@
             android:layout_marginEnd="27dp"
             android:layout_marginBottom="544dp"
             android:text="@string/print"
+            android:backgroundTint="@color/nasaBlue"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/settingsOptionFour" />

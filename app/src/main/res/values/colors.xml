@@ -6,5 +6,14 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
+    <color name="lightBlack">#191d21</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="nasaBlue">#0B3D91</color>
+    <color name="nasaRed">#FC3D21</color>
+    <color name="grey">#FF363738</color>
+    <color name="stonegrey">#323334</color>
+    <color name="darkblue">#007399</color>
+    <color name="darkred">#801a00</color>
+    <color name="matchingRed">#991f00</color>
+    <color name="orange">#f49f1c</color>
 </resources>

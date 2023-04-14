@@ -18,6 +18,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:menu="@menu/tool_menu"
+            android:background="@color/nasaBlue"
+            app:titleTextColor="@color/orange"
             app:layout_constraintTop_toTopOf="parent"/>
 
         <androidx.fragment.app.FragmentContainerView
@@ -36,9 +38,11 @@
 
     <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
+        android:background="@color/nasaBlue"
+        app:itemTextColor="@color/orange"
         android:id="@+id/naviView"
         app:menu="@menu/navi_menu">
 
