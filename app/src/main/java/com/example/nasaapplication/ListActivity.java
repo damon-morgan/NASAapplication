@@ -31,12 +31,6 @@ import java.util.ArrayList;
 public class ListActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     Toolbar tool;
     DrawerLayout draw;
-    ListView nasaList;
-    ListAdapter MyAdapter;
-    SQLiteDatabase db;
-    Button clear;
-    ArrayList<nasaObject> nasaElementList = new ArrayList<>();
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
@@ -51,79 +45,8 @@ public class ListActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = findViewById(R.id.naviView);
         navigationView.setNavigationItemSelectedListener(this);
 
-        clear = findViewById(R.id.clearButton);
-        clear.setOnClickListener(view -> {
-            Snackbar.make(view, (getResources().getString(R.string.snacky)), Snackbar.LENGTH_SHORT).show();
-            // TODO: deleteList(nasaObject c);
-        });
-
-        nasaList = findViewById(R.id.nasalist);
-
-        loadDataFromDatabase();
-
-        nasaList.setAdapter(MyAdapter = new ListAdapter());
-
-        nasaList.setOnItemLongClickListener((p, b, pos, id) -> {
-            selectList(pos);
-            return true;
-        });
-
-    }
-
-    private void loadDataFromDatabase() {
-        SQLDatabase openDB = new SQLDatabase(this);
-        db = openDB.getWritableDatabase();
-
-
-        String [] columns = {
-                SQLDatabase.COL_DATE, SQLDatabase.COL_TITLE, SQLDatabase.COL_EXPLAIN
-        };
-
-        Cursor results = db.query(false, SQLDatabase.TABLE_NAME, columns, null, null, null, null, null, null);
-
-        int titleColIndex = results.getColumnIndex(SQLDatabase.COL_TITLE);
-        int explanationColIndex = results.getColumnIndex(SQLDatabase.COL_EXPLAIN);
-        int dateColIndex = results.getColumnIndex(SQLDatabase.COL_DATE);
-
-        while(results.moveToNext())
-        {
-            String title = results.getString(titleColIndex);
-            String date = results.getString(dateColIndex);
-            String explain = results.getString(explanationColIndex);
-            nasaElementList.add(new nasaObject(title, date, explain));
-        }
-
-    }
-
-    protected void selectList(int position) {
-
-        nasaObject selectObj = nasaElementList.get(position);
-
-        View activity_view = getLayoutInflater().inflate(R.layout.activity_lists, null);
-
-        TextView rowTxt = activity_view.findViewById(R.id.textView2);
-
-        rowTxt.setText(selectObj.getDate());
-
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setTitle(getResources().getString(R.string.nasatitle))
-                .setMessage("Get detailed information")
-                .setView(activity_view)
-                .setPositiveButton(getResources().getString(R.string.deletebutton), (click, arg) -> {
-                    deleteList(selectObj);
-                    nasaElementList.remove(position);
-                    MyAdapter.notifyDataSetChanged();
-                })
-                .setNegativeButton(getResources().getString(R.string.backbutton), (click,arg) -> {})
-                .create().show();
-
-
-    }
-
-    protected void deleteList(nasaObject c) {
-        db.delete(SQLDatabase.TABLE_NAME, SQLDatabase.COL_DATE + "= ?", new String[] {c.getDate()});
-    }
-
+        getSupportFragmentManager().beginTransaction().replace(R.id.fcv, ListFragment.newInstance()).commit();
+}
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         String message = null;
@@ -175,62 +98,4 @@ public class ListActivity extends AppCompatActivity implements NavigationView.On
         inflater.inflate(R.menu.tool_menu, menu);
         return true;
     }
-
-    class ListAdapter extends BaseAdapter {
-
-        public int getCount() {
-            return nasaElementList.size();
-        }
-
-        public nasaObject getItem(int position) {
-            return nasaElementList.get(position);
-        }
-
-        public long getItemId(int position) {
-            return position;
-        }
-
-        public View getView(int position, View convertView, ViewGroup parent) {
-
-            View newView = convertView;
-            LayoutInflater inflater = getLayoutInflater();
-
-            nasaObject thisRow = getItem(position);
-            if(newView == null) {
-                newView = inflater.inflate(R.layout.activity_lists, parent, false);
-            }
-            TextView newTxt = newView.findViewById(R.id.textView2);
-
-            newTxt.setText(thisRow.getDate());
-
-            return newView;
-        }
-
-    }
-
-    public class nasaObject {
-        String nasaTitle;
-        String nasaDate;
-        String nasaExplain;
-
-        public nasaObject(String nasaTitle, String nasaDate, String nasaExplain) {
-            this.nasaTitle = nasaTitle;
-            this.nasaDate = nasaDate;
-            this.nasaExplain = nasaExplain;
-        }
-
-        public String getTitle() {
-            return nasaTitle;
-        }
-
-        public String getDate() {
-            return nasaDate;
-        }
-
-        public String getExplain() {
-            return nasaExplain;
-        }
-
-    }
-
 }

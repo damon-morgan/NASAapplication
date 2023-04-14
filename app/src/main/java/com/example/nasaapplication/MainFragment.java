@@ -1,6 +1,8 @@
 package com.example.nasaapplication;
 
+import android.content.ContentValues;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -16,7 +18,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,7 +39,13 @@ import java.nio.charset.StandardCharsets;
 public class MainFragment extends Fragment {
 
     ImageView imgView;
+    Button saveButton;
     String userDate;
+    SQLiteDatabase db;
+    String nasaTitle;
+    String nasaDate;
+    String nasaExplanation;
+    String nasaUrl;
     public static MainFragment newInstance() {
         MainFragment fragment = new MainFragment();
         return fragment;
@@ -62,9 +72,10 @@ public class MainFragment extends Fragment {
                 String result = sb.toString();
 
                 JSONObject nasaImg = new JSONObject(result);
-                String nasaDate = nasaImg.getString("date");
-                String nasaTitle = nasaImg.getString("title");
-                String nasaUrl = nasaImg.getString("url");
+                nasaDate = nasaImg.getString("date");
+                nasaTitle = nasaImg.getString("title");
+                nasaUrl = nasaImg.getString("url");
+                nasaExplanation = nasaImg.getString("explanation");
                 URL nasaPicUrl = new URL(nasaUrl);
                 response.close();
 
@@ -73,6 +84,7 @@ public class MainFragment extends Fragment {
                 File path = Environment.getExternalStorageDirectory();
                 File dir = new File(path.getAbsolutePath() + "/Pictures");
                 dir.mkdir();
+                Log.d("File Path", "File Path is: " + dir);
                 File nasaFile = new File(dir, nasaDate + ".png");
                 if (nasaFile.exists()) {
                     FileOutputStream outputStream = new FileOutputStream(nasaFile);
@@ -123,6 +135,7 @@ public class MainFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        saveButton = view.findViewById(R.id.saveButton);
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
         userDate = sharedPref.getString("date", null);
@@ -130,5 +143,27 @@ public class MainFragment extends Fragment {
         imgView = view.findViewById(R.id.imageView);
         nasaImages req = new nasaImages();
         req.execute("https://api.nasa.gov/planetary/apod?api_key=acQMNXflx5bSpHDHl3vc7uLnLYvCchnUDoHxGD0t&date="+userDate);
+
+        saveButton.setOnClickListener(v -> {
+            long rcode = insertData(nasaTitle, nasaExplanation, nasaDate, nasaUrl);
+            if (rcode == -1){
+                Toast.makeText(getContext(),"Image is already in your list", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getContext(), "Image Saved to your List!", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private long insertData(String nasaTitle, String nasaExplanation, String nasaDate, String nasaUrl) {
+        SQLDatabase dbopener = new SQLDatabase(getContext());
+        db = dbopener.getWritableDatabase();
+        ContentValues cValues = new ContentValues();
+        cValues.put(dbopener.COL_DATE, nasaDate);
+        cValues.put(dbopener.COL_EXPLAIN, nasaExplanation);
+        cValues.put(dbopener.COL_TITLE, nasaTitle);
+        cValues.put(dbopener.COL_URL, nasaUrl);
+        Log.d("Values inserted into DB", "values are " + nasaDate + nasaTitle + nasaExplanation + nasaUrl);
+        return db.insert(dbopener.TABLE_NAME, null, cValues);
     }
 }
+

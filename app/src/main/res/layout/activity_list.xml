@@ -8,37 +8,31 @@
     android:orientation="vertical"
     android:id="@+id/my_drawer">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/my_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:menu="@menu/tool_menu" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ListActivity">
+        android:orientation="vertical">
 
-        <ListView
-            android:id="@+id/nasalist"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="47dp"
-            android:layout_marginBottom="47dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/clearButton"
-            android:layout_width="wrap_content"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/my_toolbar"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/clearButton"
-            app:layout_constraintBottom_toBottomOf="@+id/nasalist"
-            app:layout_constraintStart_toStartOf="@+id/nasalist" />
+            app:menu="@menu/tool_menu"
+            app:layout_constraintTop_toTopOf="parent"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.fragment.app.FragmentContainerView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/fcv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".HowActivity"
+            app:layout_constraintTop_toBottomOf="@id/my_toolbar">
+
+        </androidx.fragment.app.FragmentContainerView>
+
+    </LinearLayout>
 
     <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"
