@@ -11,6 +11,7 @@ public class SQLDatabase extends SQLiteOpenHelper {
     public final static String COL_EXPLAIN = "Explanation";
     public final static String COL_TITLE = "Title";
     public final static String COL_DATE = "Date";
+    public final static String COL_URL = "Url";
 
     public SQLDatabase(Context contxt) {
         super(contxt, DATABASE_NAME, null, VERSION_NUM);
@@ -19,9 +20,10 @@ public class SQLDatabase extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + TABLE_NAME + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + COL_DATE + " text,"
+                + COL_DATE + " text UNIQUE,"
                 + COL_TITLE + " text,"
-                + COL_EXPLAIN + " text);");
+                + COL_EXPLAIN + " text,"
+                + COL_URL + " text)");
     }
 
     @Override
