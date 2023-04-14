@@ -5,10 +5,25 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ *  The NASA Application welcome page to greet users when they execute the application.
+ *  User can press the enter button to access the image of the day.
+ *
+ *  Authors: Damon & Dylan
+ *
+ */
+
 public class Welcome extends AppCompatActivity {
 
+    /**
+     * Declare the button as a variable.
+     */
     Button enterButton;
 
+    /**
+     * When the activity is created it will create a button with an onclick listener waiting for the user to activate it.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

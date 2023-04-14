@@ -8,17 +8,19 @@
     android:orientation="vertical"
     android:id="@+id/my_drawer">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/my_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:menu="@menu/tool_menu" />
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".Settings">
 
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/my_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:menu="@menu/tool_menu"
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
             android:id="@+id/settingsOptionTwo"
