@@ -1,72 +1,50 @@
 package com.example.nasaapplication;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.os.Environment;
-import android.preference.PreferenceManager;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.Toast;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
 /**
- *  The NASA Application Image of the Day page allows users to view the image of the day based on the date they selected.
- *  User can press the add button to save the image of the day to my list.
+ *  The NASA Application settings page gives users option to print a greeting.
+ *  User can press the print button to call on a snackbar with a message.
  *
  *  Authors: Damon & Dylan
  *
  */
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class Settings extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     /**
      * Declare each item as a variable.
      */
     Toolbar tool;
     DrawerLayout draw;
-    //ProgressBar progressBar;
-    ImageView imgView;
-    String userDate;
-    Button addButton;
-
-    // Unique API Key: acQMNXflx5bSpHDHl3vc7uLnLYvCchnUDoHxGD0t
+    Button printButton;
 
     /**
-     * When the activity is created it will create each item declared above along with the action bar, navigation view with a drawer to switch activities, and a fragment manager used to view the image.
+     * When the activity is created it will create each declared item above along with the action bar, navigation view with a drawer to switch activities, a print button to show a snackbar with a message when clicked.
      * @param savedInstanceState
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_settings);
         tool = findViewById(R.id.my_toolbar);
         setSupportActionBar(tool);
         draw = findViewById(R.id.my_drawer);
@@ -77,7 +55,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = findViewById(R.id.naviView);
         navigationView.setNavigationItemSelectedListener(this);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fcv, ProgressFragment.newInstance()).commit();
+        printButton = findViewById(R.id.Print);
+        printButton.setOnClickListener(view -> {
+            Snackbar.make(view, (getResources().getString(R.string.snacky2)), Snackbar.LENGTH_SHORT).show();
+        });
     }
 
     /**
@@ -90,29 +71,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         String message = null;
         switch(item.getItemId()) {
             case R.id.howto:
-                Intent nextPage = new Intent(MainActivity.this, HowActivity.class);
+                Intent nextPage = new Intent(Settings.this, HowActivity.class);
                 startActivity(nextPage);
                 break;
             case R.id.datepick:
-                Intent listPage = new Intent(MainActivity.this, DateActivity.class);
+                Intent listPage = new Intent(Settings.this, DateActivity.class);
                 startActivity(listPage);
                 break;
             case R.id.myhome:
-                message = "You are already here silly!";
-                Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+                Intent nextPages = new Intent(Settings.this, MainActivity.class);
+                startActivity(nextPages);
                 break;
             case R.id.mylist:
-                Intent nextPaged = new Intent(MainActivity.this, ListActivity.class);
+                Intent nextPaged = new Intent(Settings.this, ListActivity.class);
                 startActivity(nextPaged);
                 break;
         }
         draw.closeDrawer(GravityCompat.START);
 
+
         return true;
     }
 
+
     /**
-     * onOptionsItemSelected controls the toolbar menu items and depending on which is pressed either a settings activity will start or a toast will appear and exit the application.
+     * onOptionsItemSelected controls the toolbar menu items and a toast will appear. Depending on which is selected, exit the application.
      * @param item
      * @return
      */
@@ -122,8 +105,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch(item.getItemId())
         {
             case R.id.item1:
-                Intent nextPages = new Intent(MainActivity.this, Settings.class);
-                startActivity(nextPages);
+                message = "You are already here silly!";
+                Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
                 break;
             case R.id.item2:
                 message = "Exiting the application";
@@ -146,4 +129,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         inflater.inflate(R.menu.tool_menu, menu);
         return true;
     }
+
+
 }
