@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -81,17 +82,29 @@ public class ListFragment extends Fragment {
         nasaList.setAdapter(MyAdapter = new ListAdapter());
         MyAdapter.setData(nasaElementList);
 
-        nasaList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+        nasaList.setOnItemLongClickListener((p, b, pos, id) -> {
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+            alertDialogBuilder.setTitle(getResources().getString(R.string.doYouTitle))
+                    .setPositiveButton(getResources().getString(R.string.yesButton), (click, arg) -> {
+                        nasaElementList.remove(pos);
+                        MyAdapter.notifyDataSetChanged();
+                    })
+                    .setNegativeButton(getResources().getString(R.string.noButton), (click,arg) -> {})
+                    .setView(getLayoutInflater().inflate(R.layout.activity_list, null))
+                    .create().show();
+            return true;
+        });
 
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                nasaObject nasaPass = MyAdapter.getItem(position);
-                getParentFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.fcv, ImageFragment.newInstance(nasaPass.getNasaUrl(), nasaPass.getNasaDate(), nasaPass.getNasaTitle(), nasaPass.getNasaExplain()))
-                        .addToBackStack(null)
-                        .commit();
-            }
+        SwipeRefreshLayout refresher = view.findViewById(R.id.refresher);
+        refresher.setOnRefreshListener( () -> refresher.setRefreshing(false)  );
+
+        nasaList.setOnItemClickListener((parent, view1, position, id) -> {
+            nasaObject nasaPass = MyAdapter.getItem(position);
+            getParentFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fcv, ImageFragment.newInstance(nasaPass.getNasaUrl(), nasaPass.getNasaDate(), nasaPass.getNasaTitle(), nasaPass.getNasaExplain()))
+                    .addToBackStack(null)
+                    .commit();
         });
 
         nasaList.setOnItemLongClickListener((p, b, pos, id) -> {
