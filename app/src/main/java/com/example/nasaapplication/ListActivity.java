@@ -93,7 +93,7 @@ public class ListActivity extends AppCompatActivity implements NavigationView.On
     }
 
     /**
-     * onOptionsItemSelected controls the toolbar menu items and depending on which is pressed either a settings activity will start or a toast will appear and exit the application.
+     * onOptionsItemSelected controls the toolbar menu items and depending on which is pressed either a settings activity will start, help alert dialog will appear  or a toast will appear and exit the application.
      * @param item
      * @return
      */
@@ -110,6 +110,13 @@ public class ListActivity extends AppCompatActivity implements NavigationView.On
                 message = "Exiting the application";
                 Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
                 finishAffinity();
+                break;
+            case R.id.item3:
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+                alertDialogBuilder.setTitle(getResources().getString(R.string.helptitle))
+                        .setMessage(getResources().getString(R.string.listhelp))
+                        .setNegativeButton(getResources().getString(R.string.backbutton), (click,arg) -> {})
+                        .create().show();
                 break;
         }
 
