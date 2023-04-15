@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.text.Editable;
@@ -71,7 +72,6 @@ public class ListFragment extends Fragment {
         clear = view.findViewById(R.id.clearButton);
         clear.setOnClickListener(clickedView -> {
             Snackbar.make(view, (getResources().getString(R.string.snacky)), Snackbar.LENGTH_SHORT).show();
-            // TODO: deleteList(nasaObject c);
         });
 
         nasaList = view.findViewById(R.id.nasalist);
@@ -80,23 +80,6 @@ public class ListFragment extends Fragment {
         loadDataFromDatabase();
 
         nasaList.setAdapter(MyAdapter = new ListAdapter());
-        MyAdapter.setData(nasaElementList);
-
-        nasaList.setOnItemLongClickListener((p, b, pos, id) -> {
-            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
-            alertDialogBuilder.setTitle(getResources().getString(R.string.doYouTitle))
-                    .setPositiveButton(getResources().getString(R.string.yesButton), (click, arg) -> {
-                        nasaElementList.remove(pos);
-                        MyAdapter.notifyDataSetChanged();
-                    })
-                    .setNegativeButton(getResources().getString(R.string.noButton), (click,arg) -> {})
-                    .setView(getLayoutInflater().inflate(R.layout.activity_list, null))
-                    .create().show();
-            return true;
-        });
-
-        SwipeRefreshLayout refresher = view.findViewById(R.id.refresher);
-        refresher.setOnRefreshListener( () -> refresher.setRefreshing(false)  );
 
         nasaList.setOnItemClickListener((parent, view1, position, id) -> {
             nasaObject nasaPass = MyAdapter.getItem(position);
@@ -111,6 +94,7 @@ public class ListFragment extends Fragment {
             selectList(pos);
             return true;
         });
+        MyAdapter.setData(nasaElementList);
 
         listSearch.addTextChangedListener(new TextWatcher() {
             @Override
@@ -176,23 +160,25 @@ public class ListFragment extends Fragment {
         rowTxt.setText(selectObj.getNasaDate());
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
-        alertDialogBuilder.setTitle(getResources().getString(R.string.nasatitle))
-                .setMessage("Get detailed information")
+        alertDialogBuilder.setTitle(getResources().getString(R.string.doYouTitle))
                 .setView(activity_view)
-                .setPositiveButton(getResources().getString(R.string.deletebutton), (click, arg) -> {
+                .setPositiveButton(getResources().getString(R.string.yesButton), (click, arg) -> {
                     deleteList(selectObj);
                     nasaElementList.remove(position);
                     MyAdapter.notifyDataSetChanged();
                 })
-                .setNegativeButton(getResources().getString(R.string.backbutton), (click,arg) -> {})
+                .setNegativeButton(getResources().getString(R.string.noButton), (click,arg) -> {})
                 .create().show();
 
 
     }
 
-    protected void deleteList(nasaObject c) {
-            db.delete(SQLDatabase.TABLE_NAME, SQLDatabase.COL_DATE + "= ?", new String[] {c.getNasaDate()});
-        }
+    public void deleteList(nasaObject c) {
+        SQLDatabase openDB = new SQLDatabase(getContext());
+        db = openDB.getWritableDatabase();
+        db.delete(SQLDatabase.TABLE_NAME, SQLDatabase.COL_DATE + "= ?", new String[] {c.getNasaDate()});
+        db.close();
+    }
 
     class ListAdapter extends BaseAdapter {
 
