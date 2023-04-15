@@ -3,7 +3,13 @@ import android.content.Context;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
+/**
+ *  The NASA Application SQLDatabase class provides the functionality to the application for storing NASA images.
+ *  The database utilizes one table that interacts with the user to add, and delete items.
+ *
+ *  Authors: Damon & Dylan
+ *
+ */
 public class SQLDatabase extends SQLiteOpenHelper {
     protected final static String DATABASE_NAME = "nasadb";
     protected final static int VERSION_NUM = 1;
@@ -17,6 +23,10 @@ public class SQLDatabase extends SQLiteOpenHelper {
         super(contxt, DATABASE_NAME, null, VERSION_NUM);
     }
 
+    /**
+     * onCreate is used with our database details in the arguments to create our Nasa table to store images.
+     * @param db
+     */
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + TABLE_NAME + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -26,6 +36,12 @@ public class SQLDatabase extends SQLiteOpenHelper {
                 + COL_URL + " text)");
     }
 
+    /**
+     * onUpgrade is used with our database details in the arguments to drop the old database version and replace with a newly created one and upgraded version.
+     * @param db
+     * @param oldVersion
+     * @param newVersion
+     */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
@@ -33,6 +49,12 @@ public class SQLDatabase extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    /**
+     * onDowngrade is used with our database details in the arguments to drop the old database version and replace with a newly created one and older version.
+     * @param db
+     * @param oldVersion
+     * @param newVersion
+     */
     @Override
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);

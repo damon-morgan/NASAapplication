@@ -15,11 +15,24 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
+/**
+ *  The NASA Application tutorial page tells users how to use the application with a textview.
+ *
+ *  Authors: Damon & Dylan
+ *
+ */
 public class HowActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+    /**
+     * Declare each item as a variable.
+     */
     Toolbar tool;
     DrawerLayout draw;
     TextView headerTxt,mainTxt;
 
+    /**
+     * When the activity is created it will create each declared item above along with the action bar and a navigation view with a drawer to switch activities.
+     * @param savedInstanceState
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_how);
@@ -37,6 +50,11 @@ public class HowActivity extends AppCompatActivity implements NavigationView.OnN
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+    /**
+     * onNavigationItemSelected controls the navigation menu items and when each are pressed they send the user to a new activity based on selection.
+     * @param item
+     * @return
+     */
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         String message = null;
@@ -63,6 +81,11 @@ public class HowActivity extends AppCompatActivity implements NavigationView.OnN
         return true;
     }
 
+    /**
+     * onOptionsItemSelected controls the toolbar menu items and depending on which is pressed either a settings activity will start or a toast will appear and exit the application.
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         String message = null;
@@ -82,6 +105,11 @@ public class HowActivity extends AppCompatActivity implements NavigationView.OnN
         return true;
     }
 
+    /**
+     * onCreateOptionsMenu adds a menu view to the activity.
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();

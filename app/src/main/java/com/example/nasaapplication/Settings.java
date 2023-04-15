@@ -22,12 +22,25 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
-
+/**
+ *  The NASA Application settings page gives users option to print a greeting.
+ *  User can press the print button to call on a snackbar with a message.
+ *
+ *  Authors: Damon & Dylan
+ *
+ */
 public class Settings extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+    /**
+     * Declare each item as a variable.
+     */
     Toolbar tool;
     DrawerLayout draw;
     Button printButton;
 
+    /**
+     * When the activity is created it will create each declared item above along with the action bar, navigation view with a drawer to switch activities, a print button to show a snackbar with a message when clicked.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +61,11 @@ public class Settings extends AppCompatActivity implements NavigationView.OnNavi
         });
     }
 
+    /**
+     * onNavigationItemSelected controls the navigation menu items and when each are pressed they send the user to a new activity based on selection.
+     * @param item
+     * @return
+     */
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         String message = null;
@@ -75,6 +93,12 @@ public class Settings extends AppCompatActivity implements NavigationView.OnNavi
         return true;
     }
 
+
+    /**
+     * onOptionsItemSelected controls the toolbar menu items and a toast will appear. Depending on which is selected, exit the application.
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         String message = null;
@@ -94,6 +118,11 @@ public class Settings extends AppCompatActivity implements NavigationView.OnNavi
         return true;
     }
 
+    /**
+     * onCreateOptionsMenu adds a menu view to the activity.
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();

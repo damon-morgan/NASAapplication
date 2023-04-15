@@ -32,16 +32,19 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.Locale;
-
+/**
+ *  The NASA Application list fragment provides the functionality to the list activity.
+ *
+ *  Authors: Damon & Dylan
+ *
+ */
 public class ListFragment extends Fragment {
     ListView nasaList;
     ListAdapter MyAdapter;
     SQLiteDatabase db;
     Button clear;
     ArrayList<nasaObject> nasaElementList = new ArrayList<>();
-
     EditText listSearch;
-
 
     public ListFragment() {
         // Required empty public constructor
@@ -64,6 +67,11 @@ public class ListFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_list, container, false);
     }
 
+    /**
+     * Creates the view for the list which includes calling the search bar and clear button
+     * @param view
+     * @param savedInstanceState
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -138,6 +146,10 @@ public class ListFragment extends Fragment {
             }
         });
     }
+
+    /**
+     * loadDataFromDatabase method connects to the database and does a query to retrieve the image data
+     */
     private void loadDataFromDatabase() {
         SQLDatabase openDB = new SQLDatabase(getContext());
         db = openDB.getWritableDatabase();
@@ -165,6 +177,10 @@ public class ListFragment extends Fragment {
 
     }
 
+    /**
+     * selectList method to allow the user to select the item based on the position in the list
+     * @param position
+     */
     protected void selectList(int position) {
 
         nasaObject selectObj = nasaElementList.get(position);
@@ -190,10 +206,17 @@ public class ListFragment extends Fragment {
 
     }
 
+    /**
+     * deleteList method to remove a row of image data from the Nasa table
+     * @param c
+     */
     protected void deleteList(nasaObject c) {
             db.delete(SQLDatabase.TABLE_NAME, SQLDatabase.COL_DATE + "= ?", new String[] {c.getNasaDate()});
         }
 
+    /**
+     *  List adapter class that shows the list data to the list activity
+      */
     class ListAdapter extends BaseAdapter {
 
         ArrayList<nasaObject> listItems = new ArrayList<>();
@@ -236,6 +259,9 @@ public class ListFragment extends Fragment {
 
     }
 
+    /**
+     * Nasa Object class to create the nasa image objects
+     */
     public class nasaObject {
         String nasaTitle;
         String nasaDate;
@@ -249,6 +275,10 @@ public class ListFragment extends Fragment {
             this.nasaUrl = nasaUrl;
         }
 
+        /**
+         * Getter and setters for each attribute of the nasa object
+         * @return
+         */
         public String getNasaTitle() {
             return nasaTitle;
         }
