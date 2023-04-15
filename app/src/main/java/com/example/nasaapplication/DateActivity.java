@@ -1,5 +1,6 @@
 package com.example.nasaapplication;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -145,6 +146,13 @@ public class DateActivity extends AppCompatActivity implements NavigationView.On
                 message = "Exiting the application";
                 Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
                 finishAffinity();
+                break;
+            case R.id.item3:
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+                alertDialogBuilder.setTitle(getResources().getString(R.string.helptitle))
+                        .setMessage(getResources().getString(R.string.datehelp))
+                        .setNegativeButton(getResources().getString(R.string.backbutton), (click,arg) -> {})
+                        .create().show();
                 break;
         }
 

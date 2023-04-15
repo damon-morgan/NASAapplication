@@ -1,10 +1,12 @@
 package com.example.nasaapplication;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -99,6 +101,13 @@ public class HowActivity extends AppCompatActivity implements NavigationView.OnN
                 message = "Exiting the application";
                 Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
                 finishAffinity();
+                break;
+            case R.id.item3:
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+                alertDialogBuilder.setTitle(getResources().getString(R.string.helptitle))
+                        .setMessage(getResources().getString(R.string.howhelp))
+                        .setNegativeButton(getResources().getString(R.string.backbutton), (click,arg) -> {})
+                        .create().show();
                 break;
         }
 

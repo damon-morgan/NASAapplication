@@ -12,6 +12,12 @@
     <string name="clearButton">Clair</string>
     <string name="addButton">Ajouter</string>
     <string name="nasatitle">Des informations détaillées</string>
+    <string name="helptitle">Interface d\'aide</string>
+    <string name="howhelp">Utilisez cette page pour découvrir le fonctionnement de l\'application.</string>
+    <string name="datehelp">Utilisez cette page pour sélectionner une date en cliquant sur le bouton sous le texte. Un calendrier apparaîtra pour sélectionner une date. Enfin, cliquez sur le bouton de récupération pour voir l\'image de ce jour</string>
+    <string name="mainhelp">Utilisez cette page pour récupérer une image à partir de la date sélectionnée. Appuyez sur le bouton Enregistrer pour enregistrer l\'image dans une liste.</string>
+    <string name="listhelp">Utilisez cette page pour accéder à vos images enregistrées. Cliquez sur chaque élément de la liste pour voir des détails supplémentaires. Appuyez longuement sur un élément pour afficher la possibilité de supprimer l\'image.</string>
+    <string name="settinghelp">Utilisez cette page pour imprimer un message.</string>
     <string name="settingsTextOne">Effacer ma liste</string>
     <string name="settingsTextTwo">Changer la couleur de fond</string>
     <string name="settingsTextThree">Changer la couleur du texte</string>

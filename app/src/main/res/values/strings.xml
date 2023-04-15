@@ -13,6 +13,12 @@
     <string name="clearButton">Clear</string>
     <string name="addButton">Add</string>
     <string name="nasatitle">Detailed Information</string>
+    <string name="helptitle">Help Interface</string>
+    <string name="howhelp">Use this page to learn how the application works.</string>
+    <string name="datehelp">Use this page to select a date by clicking the button under the text. A calendar will pop up to select a date. Finally, click the retrieve button to see the image of that day</string>
+    <string name="mainhelp">Use this page to retrieve an image from the date that is selected. Press the save button to save the image into a list.</string>
+    <string name="listhelp">Use this page to access your saved images. Click on each list item to see extra details. Long press an item to bring up the ability to delete the image.</string>
+    <string name="settinghelp">Use this page to print a message.</string>
     <string name="settingsTextOne">Clear my list</string>
     <string name="settingsTextTwo">Change background color</string>
     <string name="settingsTextThree">Change text color</string>
