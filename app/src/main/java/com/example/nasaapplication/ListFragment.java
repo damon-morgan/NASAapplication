@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.text.Editable;
@@ -33,16 +32,19 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.Locale;
-
+/**
+ *  The NASA Application list fragment provides the functionality to the list activity.
+ *
+ *  Authors: Damon & Dylan
+ *
+ */
 public class ListFragment extends Fragment {
     ListView nasaList;
     ListAdapter MyAdapter;
     SQLiteDatabase db;
     Button clear;
     ArrayList<nasaObject> nasaElementList = new ArrayList<>();
-
     EditText listSearch;
-
 
     public ListFragment() {
         // Required empty public constructor
@@ -65,6 +67,11 @@ public class ListFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_list, container, false);
     }
 
+    /**
+     * Creates the view for the list which includes calling the search bar and clear button
+     * @param view
+     * @param savedInstanceState
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -80,6 +87,20 @@ public class ListFragment extends Fragment {
         loadDataFromDatabase();
 
         nasaList.setAdapter(MyAdapter = new ListAdapter());
+        MyAdapter.setData(nasaElementList);
+
+        nasaList.setOnItemLongClickListener((p, b, pos, id) -> {
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+            alertDialogBuilder.setTitle(getResources().getString(R.string.doYouTitle))
+                    .setPositiveButton(getResources().getString(R.string.yesButton), (click, arg) -> {
+                        nasaElementList.remove(pos);
+                        MyAdapter.notifyDataSetChanged();
+                    })
+                    .setNegativeButton(getResources().getString(R.string.noButton), (click,arg) -> {})
+                    .setView(getLayoutInflater().inflate(R.layout.activity_list, null))
+                    .create().show();
+            return true;
+        });
 
         nasaList.setOnItemClickListener((parent, view1, position, id) -> {
             nasaObject nasaPass = MyAdapter.getItem(position);
@@ -94,7 +115,6 @@ public class ListFragment extends Fragment {
             selectList(pos);
             return true;
         });
-        MyAdapter.setData(nasaElementList);
 
         listSearch.addTextChangedListener(new TextWatcher() {
             @Override
@@ -122,6 +142,10 @@ public class ListFragment extends Fragment {
             }
         });
     }
+
+    /**
+     * loadDataFromDatabase method connects to the database and does a query to retrieve the image data
+     */
     private void loadDataFromDatabase() {
         SQLDatabase openDB = new SQLDatabase(getContext());
         db = openDB.getWritableDatabase();
@@ -149,6 +173,10 @@ public class ListFragment extends Fragment {
 
     }
 
+    /**
+     * selectList method to allow the user to select the item based on the position in the list
+     * @param position
+     */
     protected void selectList(int position) {
 
         nasaObject selectObj = nasaElementList.get(position);
@@ -160,26 +188,31 @@ public class ListFragment extends Fragment {
         rowTxt.setText(selectObj.getNasaDate());
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
-        alertDialogBuilder.setTitle(getResources().getString(R.string.doYouTitle))
+        alertDialogBuilder.setTitle(getResources().getString(R.string.nasatitle))
+                .setMessage("Get detailed information")
                 .setView(activity_view)
-                .setPositiveButton(getResources().getString(R.string.yesButton), (click, arg) -> {
+                .setPositiveButton(getResources().getString(R.string.deletebutton), (click, arg) -> {
                     deleteList(selectObj);
                     nasaElementList.remove(position);
                     MyAdapter.notifyDataSetChanged();
                 })
-                .setNegativeButton(getResources().getString(R.string.noButton), (click,arg) -> {})
+                .setNegativeButton(getResources().getString(R.string.backbutton), (click,arg) -> {})
                 .create().show();
 
 
     }
 
-    public void deleteList(nasaObject c) {
-        SQLDatabase openDB = new SQLDatabase(getContext());
-        db = openDB.getWritableDatabase();
-        db.delete(SQLDatabase.TABLE_NAME, SQLDatabase.COL_DATE + "= ?", new String[] {c.getNasaDate()});
-        db.close();
-    }
+    /**
+     * deleteList method to remove a row of image data from the Nasa table
+     * @param c
+     */
+    protected void deleteList(nasaObject c) {
+            db.delete(SQLDatabase.TABLE_NAME, SQLDatabase.COL_DATE + "= ?", new String[] {c.getNasaDate()});
+        }
 
+    /**
+     *  List adapter class that shows the list data to the list activity
+      */
     class ListAdapter extends BaseAdapter {
 
         ArrayList<nasaObject> listItems = new ArrayList<>();
@@ -222,6 +255,9 @@ public class ListFragment extends Fragment {
 
     }
 
+    /**
+     * Nasa Object class to create the nasa image objects
+     */
     public class nasaObject {
         String nasaTitle;
         String nasaDate;
@@ -235,6 +271,10 @@ public class ListFragment extends Fragment {
             this.nasaUrl = nasaUrl;
         }
 
+        /**
+         * Getter and setters for each attribute of the nasa object
+         * @return
+         */
         public String getNasaTitle() {
             return nasaTitle;
         }

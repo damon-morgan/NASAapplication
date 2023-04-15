@@ -36,8 +36,18 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
+/**
+ * The MainFragment fragment parses the json file relevant to the date the user selected in the DateActivity.
+ * MainFragment will inflate in FCV container on MainActivity.
+ * Save button allows user to save the image to their list and to SQLdatabase, including the title, date and explanation from the json file.
+ *
+ * Authors: Damon & Dylan
+ *
+ */
 public class MainFragment extends Fragment {
-
+    /**
+     * Declaration of variables
+     */
     ImageView imgView;
     Button saveButton;
     String userDate;
@@ -51,10 +61,21 @@ public class MainFragment extends Fragment {
         return fragment;
     }
 
+    /**
+     * nasaImages class extends AsyncTask
+     */
     class nasaImages extends AsyncTask<String, Integer, Bitmap> {
 
         Bitmap nasaPic;
 
+        /**
+         * Bitmap doinBackground opens a HTTP connection to the url corresponding to the date selected.
+         * The jsonfile will be parsed and return values of "date, title, url, explanation".
+         * url returned by jsonfile will be accessed to download the image and save it to file storage on phone.
+         * @param args The parameters of the task.
+         *
+         * @return nasaPic
+         */
         @Override
         protected Bitmap doInBackground(String... args) {
             try {
@@ -109,6 +130,11 @@ public class MainFragment extends Fragment {
             return nasaPic;
         }
 
+        /**
+         * sets the imgView to the image saved from the doinBackground. Displaying the image to the user.
+         * @param args The values indicating progress.
+         *
+         */
         public void onProgressUpdate(Integer... args) {
             //progressBar.setProgress(args[0]);
             imgView.setImageBitmap(nasaPic);
@@ -132,6 +158,14 @@ public class MainFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_main, container, false);
     }
 
+    /**
+     * method that after the View is created will allow users to interact with the Save button.
+     * if users press the save button, the image and its title, date and explanation will be saved to their list
+     * Will also insert data into the database, toast will notify user if the item is saved successfully or if the item is already in their list/database
+     * @param view The View returned by {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -154,6 +188,14 @@ public class MainFragment extends Fragment {
         });
     }
 
+    /**
+     * insertData inserts the values parsed from the json of the date users selected, and have decided to save
+     * @param nasaTitle
+     * @param nasaExplanation
+     * @param nasaDate
+     * @param nasaUrl
+     * @return
+     */
     private long insertData(String nasaTitle, String nasaExplanation, String nasaDate, String nasaUrl) {
         SQLDatabase dbopener = new SQLDatabase(getContext());
         db = dbopener.getWritableDatabase();

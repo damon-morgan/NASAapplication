@@ -25,8 +25,17 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-
+/**
+ *  The NASA Application select a date page to allow users to set a custom date to view the image of the day.
+ *  User can press the retrieve button to bring up the image of the day in regards to the date selected.
+ *
+ *  Authors: Damon & Dylan
+ *
+ */
 public class DateActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+    /**
+     * Declare each item as a variable.
+     */
     Toolbar tool;
     DrawerLayout draw;
     TextView selectDate;
@@ -34,6 +43,10 @@ public class DateActivity extends AppCompatActivity implements NavigationView.On
     String selectedDate;
     SharedPreferences sharePref;
 
+    /**
+     * When the activity is created it will create each declared item above along with the action bar, navigation view with a drawer to switch activities, sharedpreferences to save the date, the built in calendar with a select button, and a retrieve button.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,6 +95,11 @@ public class DateActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
+    /**
+     * onNavigationItemSelected controls the navigation menu items and when each are pressed they send the user to a new activity based on selection.
+     * @param item
+     * @return
+     */
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         String message;
@@ -106,10 +124,14 @@ public class DateActivity extends AppCompatActivity implements NavigationView.On
 
         draw.closeDrawer(GravityCompat.START);
 
-
         return true;
     }
 
+    /**
+     * onOptionsItemSelected controls the toolbar menu items and depending on which is pressed either a settings activity will start or a toast will appear and exit the application.
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         String message = null;
@@ -129,6 +151,11 @@ public class DateActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
+    /**
+     * onCreateOptionsMenu adds a menu view to the activity.
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();

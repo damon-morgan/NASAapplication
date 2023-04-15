@@ -39,8 +39,17 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-
+/**
+ *  The NASA Application Image of the Day page allows users to view the image of the day based on the date they selected.
+ *  User can press the add button to save the image of the day to my list.
+ *
+ *  Authors: Damon & Dylan
+ *
+ */
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    /**
+     * Declare each item as a variable.
+     */
     Toolbar tool;
     DrawerLayout draw;
     //ProgressBar progressBar;
@@ -50,6 +59,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     // Unique API Key: acQMNXflx5bSpHDHl3vc7uLnLYvCchnUDoHxGD0t
 
+    /**
+     * When the activity is created it will create each item declared above along with the action bar, navigation view with a drawer to switch activities, and a fragment manager used to view the image.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,14 +77,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = findViewById(R.id.naviView);
         navigationView.setNavigationItemSelectedListener(this);
 
-        addButton = findViewById(R.id.addButton);
-        addButton.setOnClickListener(view -> {
-            // TODO: Make button add to the list
-        });
-
         getSupportFragmentManager().beginTransaction().replace(R.id.fcv, ProgressFragment.newInstance()).commit();
     }
 
+    /**
+     * onNavigationItemSelected controls the navigation menu items and when each are pressed they send the user to a new activity based on selection.
+     * @param item
+     * @return
+     */
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         String message = null;
@@ -98,6 +111,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
+    /**
+     * onOptionsItemSelected controls the toolbar menu items and depending on which is pressed either a settings activity will start or a toast will appear and exit the application.
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         String message = null;
@@ -117,6 +135,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
+    /**
+     * onCreateOptionsMenu adds a menu view to the activity.
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();

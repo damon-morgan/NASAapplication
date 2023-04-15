@@ -32,8 +32,18 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
-public class ImageFragment extends Fragment {
+/**
+ * ImageFragment is inflated upon users clicking on a saved list item.
+ * It will display the image, title, date, and explanation of the selected list item
+ *
+ * Authors: Damon & Dylan
+ *
+ */
 
+public class ImageFragment extends Fragment {
+    /**
+     * Variable & view declaration
+     */
     private static final String ARG_IMAGE = "image";
     private static final String ARG_DATE = "date";
     private static final String ARG_TITLE = "title";
@@ -53,6 +63,16 @@ public class ImageFragment extends Fragment {
     public ImageFragment() {
         // Required empty public constructor
     }
+
+    /**
+     * Bundled data passed from ListFragment, which contains the image url, date, title and explanation of the listitem the user selected.
+     * Put the string values into their respective ARG
+     * @param image
+     * @param date
+     * @param title
+     * @param explanation
+     * @return
+     */
     public static ImageFragment newInstance(String image, String date, String title, String explanation) {
         ImageFragment fragment = new ImageFragment();
         Bundle args = new Bundle();
@@ -64,6 +84,11 @@ public class ImageFragment extends Fragment {
         return fragment;
     }
 
+    /**
+     * Sets the state of the fragment & value of ARG upon view creation
+     * @param savedInstanceState If the fragment is being re-created from
+     * a previous saved state, this is the state.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,6 +106,12 @@ public class ImageFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_image, container, false);
     }
 
+    /**
+     * Sets the respective views to the data passed through the bundle to ARGS.
+     * @param view The View returned by {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -97,6 +128,9 @@ public class ImageFragment extends Fragment {
         tvFrag3.setText(explanation);
     }
 
+    /**
+     * Retrieves image from url
+     */
     private class LoadImageTask extends AsyncTask<String, Void, Bitmap> {
 
         @Override
@@ -116,6 +150,11 @@ public class ImageFragment extends Fragment {
             }
         }
 
+        /**
+         * Sets image to respective view.
+         * @param result The result of the operation computed by {@link #doInBackground}.
+         *
+         */
         @Override
         protected void onPostExecute(Bitmap result) {
             if (result != null) {
