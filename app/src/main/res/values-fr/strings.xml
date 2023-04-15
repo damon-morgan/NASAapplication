@@ -21,6 +21,9 @@
     <string name="snacky2">Nous espérons que vous passerez une merveilleuse journée!</string>
     <string name="saveButton">Sauvegarder</string>
     <string name="listSearch">Recherche</string>
+    <string name="yesButton">Oui</string>
+    <string name="noButton">Non</string>
+    <string name="doYouTitle">Voulez-vous supprimer ceci?</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Bonjour fragment vierge</string>
 </resources>
