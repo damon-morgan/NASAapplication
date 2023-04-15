@@ -1,6 +1,7 @@
 package com.example.nasaapplication;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -95,7 +96,7 @@ public class Settings extends AppCompatActivity implements NavigationView.OnNavi
 
 
     /**
-     * onOptionsItemSelected controls the toolbar menu items and a toast will appear. Depending on which is selected, exit the application.
+     * onOptionsItemSelected controls the toolbar menu items, help alert dialog and a toast will appear. Depending on which is selected, exit the application.
      * @param item
      * @return
      */
@@ -112,6 +113,13 @@ public class Settings extends AppCompatActivity implements NavigationView.OnNavi
                 message = "Exiting the application";
                 Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
                 finishAffinity();
+                break;
+            case R.id.item3:
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+                alertDialogBuilder.setTitle(getResources().getString(R.string.helptitle))
+                        .setMessage(getResources().getString(R.string.settinghelp))
+                        .setNegativeButton(getResources().getString(R.string.backbutton), (click,arg) -> {})
+                        .create().show();
                 break;
         }
 
