@@ -84,7 +84,7 @@ public class HowActivity extends AppCompatActivity implements NavigationView.OnN
     }
 
     /**
-     * onOptionsItemSelected controls the toolbar menu items and depending on which is pressed either a settings activity will start or a toast will appear and exit the application.
+     * onOptionsItemSelected controls the toolbar menu items and depending on which is pressed either a settings activity will start, help alert dialog will appear or a toast will appear and exit the application.
      * @param item
      * @return
      */

@@ -96,7 +96,7 @@ public class Settings extends AppCompatActivity implements NavigationView.OnNavi
 
 
     /**
-     * onOptionsItemSelected controls the toolbar menu items and a toast will appear. Depending on which is selected, exit the application.
+     * onOptionsItemSelected controls the toolbar menu items, help alert dialog and a toast will appear. Depending on which is selected, exit the application.
      * @param item
      * @return
      */
