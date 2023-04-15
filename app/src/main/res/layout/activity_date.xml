@@ -14,10 +14,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/my_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/nasaBlue"
+        app:titleTextColor="@color/orange"
         app:menu="@menu/tool_menu" />
 
 
@@ -27,6 +30,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/grey"
         tools:context=".DateActivity">
 
         <TextView
@@ -34,8 +38,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/selectDate"
-            android:textSize="30dp"
-            android:layout_marginTop="350dp"
+            android:textSize="30sp"
+            android:textColor="@color/white"
+            android:layout_marginTop="150dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -44,7 +49,7 @@
             android:id="@+id/dateSelectButton"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:textSize="28dp"
+            android:textSize="20sp"
             android:textColor="@color/white"
             style="?android:spinnerStyle"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -59,7 +64,8 @@
             android:layout_height="wrap_content"
             android:text="Retrieve Image"
             android:textSize="25dp"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
+            android:backgroundTint="#0B3D91"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/dateSelectButton"
@@ -69,11 +75,12 @@
     </LinearLayout>
 
     <com.google.android.material.navigation.NavigationView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:fitsSystemWindows="true"
         android:id="@+id/naviView"
-        app:menu="@menu/navi_menu">
-    </com.google.android.material.navigation.NavigationView>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:background="@color/nasaBlue"
+        android:fitsSystemWindows="true"
+        app:itemTextColor="@color/orange"
+        app:menu="@menu/navi_menu" />
 </androidx.drawerlayout.widget.DrawerLayout>
