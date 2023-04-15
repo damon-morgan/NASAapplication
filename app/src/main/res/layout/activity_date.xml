@@ -52,6 +52,7 @@
             android:textSize="20sp"
             android:textColor="@color/white"
             style="?android:spinnerStyle"
+            android:backgroundTint="@color/nasaBlue"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/selectDate"

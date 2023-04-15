@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             // TODO: Make button add to the list
         });
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fcv, MainFragment.newInstance()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fcv, ProgressFragment.newInstance()).commit();
     }
 
     @Override

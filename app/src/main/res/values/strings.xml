@@ -21,6 +21,5 @@
     <string name="snacky2">We hope you have a wonderful day!</string>
     <string name="saveButton">Save</string>
     <string name="listSearch">Search</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="loadPage">Please Wait! We are retrieving your image!</string>
 </resources>
